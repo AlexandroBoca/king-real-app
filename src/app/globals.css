@@ -74,6 +74,26 @@ textarea {
   background-color: white !important;
 }
 
+/* Even more specific rules for auth pages */
+body input,
+body textarea {
+  color: #111827 !important;
+  background-color: white !important;
+}
+
+/* Force placeholder text color */
+input::placeholder,
+textarea::placeholder {
+  color: #6b7280 !important;
+}
+
+/* Universal rule to force input text color */
+* input,
+* textarea {
+  color: #111827 !important;
+  background-color: white !important;
+}
+
 /* Dark mode shadows */
 .dark .shadow-sm {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5) !important;
