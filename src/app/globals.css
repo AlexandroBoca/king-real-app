@@ -64,19 +64,15 @@ body {
   font-weight: bold !important;
 }
 
-/* Force input text color to be visible */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="tel"],
-textarea {
+/* Force input text color to be visible on auth pages only */
+.bg-gray-50 input,
+.bg-white input {
   color: #111827 !important;
   background-color: white !important;
 }
 
-/* Even more specific rules for auth pages */
-body input,
-body textarea {
+.bg-gray-50 textarea,
+.bg-white textarea {
   color: #111827 !important;
   background-color: white !important;
 }
@@ -85,13 +81,6 @@ body textarea {
 input::placeholder,
 textarea::placeholder {
   color: #6b7280 !important;
-}
-
-/* Universal rule to force input text color */
-* input,
-* textarea {
-  color: #111827 !important;
-  background-color: white !important;
 }
 
 /* Dark mode shadows */
