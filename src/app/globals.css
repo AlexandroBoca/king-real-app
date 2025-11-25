@@ -36,15 +36,8 @@ body {
   color: #f9fafb;
 }
 
-/* Force checkboxes to have white background when not checked */
-input[type="checkbox"]:not(:checked) {
-  background-color: white !important;
-  border: 2px solid #d1d5db !important;
-  position: relative !important;
-}
-
 /* Custom checkbox styling */
-input[type="checkbox"] {
+.custom-checkbox {
   appearance: none !important;
   width: 1rem !important;
   height: 1rem !important;
@@ -55,12 +48,12 @@ input[type="checkbox"] {
   cursor: pointer !important;
 }
 
-input[type="checkbox"]:checked {
+.custom-checkbox:checked {
   background-color: #4f46e5 !important;
   border-color: #4f46e5 !important;
 }
 
-input[type="checkbox"]:checked::after {
+.custom-checkbox:checked::after {
   content: '✓' !important;
   position: absolute !important;
   top: 50% !important;
