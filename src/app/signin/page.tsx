@@ -88,6 +88,7 @@ export default function SignIn() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className={`appearance-none block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-white text-black placeholder-gray-400' : 'border-gray-300 bg-white text-gray-900 placeholder-gray-400'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                  style={{ color: theme === 'dark' ? 'black' : '#111827' }}
                   placeholder="Enter your email"
                 />
               </div>
@@ -107,6 +108,7 @@ export default function SignIn() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className={`appearance-none block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-white text-black placeholder-gray-400' : 'border-gray-300 bg-white text-gray-900 placeholder-gray-400'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                  style={{ color: theme === 'dark' ? 'black' : '#111827' }}
                   placeholder="Enter your password"
                 />
               </div>
