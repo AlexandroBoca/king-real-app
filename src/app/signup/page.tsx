@@ -143,7 +143,7 @@ export default function SignUp() {
                     required
                     value={formData.firstName}
                     onChange={handleChange}
-                    className={`appearance-none block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-white text-white placeholder-gray-400' : 'border-gray-300 bg-white text-gray-900 placeholder-gray-400'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                    className={`appearance-none block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-white text-gray-900 placeholder-gray-400' : 'border-gray-300 bg-white text-gray-900 placeholder-gray-400'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                     placeholder="Enter first name"
                   />
                 </div>
@@ -162,7 +162,7 @@ export default function SignUp() {
                     required
                     value={formData.lastName}
                     onChange={handleChange}
-                    className={`appearance-none block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-white text-white placeholder-gray-400' : 'border-gray-300 bg-white text-gray-900 placeholder-gray-400'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                    className={`appearance-none block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-white text-gray-900 placeholder-gray-400' : 'border-gray-300 bg-white text-gray-900 placeholder-gray-400'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                     placeholder="Enter last name"
                   />
                 </div>
@@ -182,7 +182,7 @@ export default function SignUp() {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className={`appearance-none block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-white text-white placeholder-gray-400' : 'border-gray-300 bg-white text-gray-900 placeholder-gray-400'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                  className={`appearance-none block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-white text-gray-900 placeholder-gray-400' : 'border-gray-300 bg-white text-gray-900 placeholder-gray-400'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                   placeholder="Enter your email"
                 />
               </div>
@@ -201,7 +201,7 @@ export default function SignUp() {
                   required
                   value={formData.password}
                   onChange={handleChange}
-                  className={`appearance-none block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-white text-white placeholder-gray-400' : 'border-gray-300 bg-white text-gray-900 placeholder-gray-400'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                  className={`appearance-none block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-white text-gray-900 placeholder-gray-400' : 'border-gray-300 bg-white text-gray-900 placeholder-gray-400'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                   placeholder="Create a password"
                 />
               </div>
@@ -223,7 +223,7 @@ export default function SignUp() {
                   required
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className={`appearance-none block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-white text-white placeholder-gray-400' : 'border-gray-300 bg-white text-gray-900 placeholder-gray-400'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                  className={`appearance-none block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-white text-gray-900 placeholder-gray-400' : 'border-gray-300 bg-white text-gray-900 placeholder-gray-400'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                   placeholder="Confirm your password"
                 />
               </div>
