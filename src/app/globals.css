@@ -36,28 +36,6 @@ body {
   color: #f9fafb;
 }
 
-/* Dark mode for form elements */
-.dark input,
-.dark textarea,
-.dark select {
-  background-color: #1f2937 !important;
-  border-color: #374151 !important;
-  color: #f9fafb !important;
-}
-
-.dark input::placeholder,
-.dark textarea::placeholder {
-  color: #6b7280 !important;
-}
-
-/* Dark mode for focus states */
-.dark input:focus,
-.dark textarea:focus,
-.dark select:focus {
-  border-color: #6366f1 !important;
-  --tw-ring-color: #6366f1 !important;
-}
-
 /* Dark mode shadows */
 .dark .shadow-sm {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5) !important;
