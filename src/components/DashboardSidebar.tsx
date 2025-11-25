@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
+import { useTheme } from "@/contexts/ThemeContext";
 
 interface NavItem {
   name: string;
@@ -17,6 +18,7 @@ interface DashboardSidebarProps {
 export function DashboardSidebar({ onMenuToggle }: DashboardSidebarProps = {}) {
   const pathname = usePathname();
   const { user, logout } = useAuth();
+  const { theme } = useTheme();
 
   const navigation: NavItem[] = [
     {
@@ -77,14 +79,14 @@ export function DashboardSidebar({ onMenuToggle }: DashboardSidebarProps = {}) {
   ];
 
   return (
-    <div className="flex flex-col h-full bg-white">
+    <div className={`flex flex-col h-full ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
       {/* Logo */}
-      <div className="flex items-center h-16 px-6 border-b border-gray-200 flex-shrink-0">
+      <div className={`flex items-center h-16 px-6 border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'} flex-shrink-0`}>
         {/* Mobile menu button */}
         <div className="lg:hidden mr-3">
           <button 
             onClick={onMenuToggle}
-            className="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100"
+            className={`p-2 rounded-md ${theme === 'dark' ? 'text-gray-400 hover:text-gray-300 hover:bg-gray-700' : 'text-gray-400 hover:text-gray-500 hover:bg-gray-100'}`}
           >
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -92,12 +94,12 @@ export function DashboardSidebar({ onMenuToggle }: DashboardSidebarProps = {}) {
           </button>
         </div>
         <Link href="/dashboard" className="flex items-center">
-          <h1 className="text-xl font-bold text-gray-900">MyApp</h1>
+          <h1 className={`text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>MyApp</h1>
         </Link>
       </div>
 
       {/* User Info */}
-      <div className="px-6 py-4 border-b border-gray-200 flex-shrink-0">
+      <div className={`px-6 py-4 border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'} flex-shrink-0`}>
         <div className="flex items-center">
           <div className="flex-shrink-0">
             <div className="h-8 w-8 bg-indigo-500 rounded-full flex items-center justify-center">
@@ -107,10 +109,10 @@ export function DashboardSidebar({ onMenuToggle }: DashboardSidebarProps = {}) {
             </div>
           </div>
           <div className="ml-3 min-w-0 flex-1">
-            <p className="text-sm font-medium text-gray-900 truncate">
+            <p className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'} truncate`}>
               {user?.firstName} {user?.lastName}
             </p>
-            <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+            <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} truncate`}>{user?.email}</p>
           </div>
         </div>
       </div>
@@ -126,12 +128,20 @@ export function DashboardSidebar({ onMenuToggle }: DashboardSidebarProps = {}) {
               href={item.href}
               className={`group flex items-center px-3 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
                 isActive
-                  ? "bg-indigo-50 text-indigo-700 border-r-2 border-indigo-700"
-                  : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                  ? theme === 'dark' 
+                    ? "bg-indigo-900 text-indigo-300 border-r-2 border-indigo-500"
+                    : "bg-indigo-50 text-indigo-700 border-r-2 border-indigo-700"
+                  : theme === 'dark'
+                    ? "text-gray-300 hover:bg-gray-700 hover:text-white"
+                    : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
               }`}
             >
               <div className={`flex-shrink-0 mr-3 ${
-                isActive ? "text-indigo-500" : "text-gray-400 group-hover:text-gray-500"
+                isActive 
+                  ? theme === 'dark' ? "text-indigo-400" : "text-indigo-500"
+                  : theme === 'dark' 
+                    ? "text-gray-400 group-hover:text-gray-300"
+                    : "text-gray-400 group-hover:text-gray-500"
               }`}>
                 {item.icon}
               </div>
@@ -142,12 +152,20 @@ export function DashboardSidebar({ onMenuToggle }: DashboardSidebarProps = {}) {
       </nav>
 
       {/* Sign Out */}
-      <div className="px-4 py-4 border-t border-gray-200 flex-shrink-0">
+      <div className={`px-4 py-4 border-t ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'} flex-shrink-0`}>
         <button
           onClick={logout}
-          className="w-full group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-all duration-200"
+          className={`w-full group flex items-center px-3 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+            theme === 'dark'
+              ? 'text-gray-300 hover:bg-gray-700 hover:text-white'
+              : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+          }`}
         >
-          <svg className="flex-shrink-0 mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className={`flex-shrink-0 mr-3 h-5 w-5 ${
+            theme === 'dark'
+              ? 'text-gray-400 group-hover:text-gray-300'
+              : 'text-gray-400 group-hover:text-gray-500'
+          }`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
           </svg>
           Sign out

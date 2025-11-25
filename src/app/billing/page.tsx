@@ -1,13 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { DashboardLayout } from "@/components/DashboardLayout";
+import { useTheme } from "@/contexts/ThemeContext";
 import Link from "next/link";
-import { useState } from "react";
 
 export default function Billing() {
   const { user } = useAuth();
+  const { theme } = useTheme();
   const [selectedPlan, setSelectedPlan] = useState("premium");
   const [showAddCardModal, setShowAddCardModal] = useState(false);
   const [paymentMethods, setPaymentMethods] = useState([
@@ -173,12 +175,12 @@ export default function Billing() {
       >
         <div className="max-w-7xl mx-auto">
           {/* Current Plan Status */}
-          <div className="bg-white p-4 sm:p-6 rounded-lg shadow mb-6 sm:mb-8">
+          <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} p-4 sm:p-6 rounded-lg shadow mb-6 sm:mb-8`}>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <h2 className="text-base sm:text-lg font-semibold text-gray-900">Current Plan</h2>
+                <h2 className={`text-base sm:text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Current Plan</h2>
                 <p className="text-xl sm:text-2xl font-bold text-indigo-600 mt-1">Premium</p>
-                <p className="text-sm text-gray-600 mt-1">29.99/month • Renews on February 15, 2024</p>
+                <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mt-1`}>29.99/month • Renews on February 15, 2024</p>
               </div>
               <div className="flex flex-col sm:flex-row gap-2">
                 <button className="bg-indigo-600 text-white hover:bg-indigo-700 px-4 py-2 rounded-md text-sm font-medium w-full sm:w-auto">
@@ -193,50 +195,68 @@ export default function Billing() {
 
           {/* Pricing Plans */}
           <div className="mb-6 sm:mb-8">
-            <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">Available Plans</h2>
+            <h2 className={`text-base sm:text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Available Plans</h2>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
               {plans.map((plan) => (
                 <div
                   key={plan.id}
                   className={`p-4 sm:p-6 rounded-lg border-2 transition-all duration-300 transform hover:scale-105 hover:shadow-xl cursor-pointer ${
                     selectedPlan === plan.id
-                      ? "border-indigo-500 bg-indigo-50"
-                      : "border-gray-200 bg-white hover:border-indigo-300"
+                      ? theme === 'dark'
+                        ? "border-indigo-400 bg-gradient-to-br from-indigo-900/50 to-purple-900/50 shadow-xl shadow-indigo-500/20"
+                        : "border-indigo-500 bg-indigo-50"
+                      : theme === 'dark'
+                        ? "border-gray-700 bg-gray-800 hover:border-indigo-400 hover:bg-gray-750"
+                        : "border-gray-200 bg-white hover:border-indigo-300"
                   }`}
                   onClick={() => setSelectedPlan(plan.id)}
                 >
                   <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-900">{plan.name}</h3>
+                    <h3 className={`text-lg sm:text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{plan.name}</h3>
                     {plan.popular && (
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                        theme === 'dark'
+                          ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg'
+                          : 'bg-indigo-100 text-indigo-800'
+                      }`}>
                         Popular
                       </span>
                     )}
                   </div>
                   <div className="mb-4">
-                    <span className="text-3xl sm:text-4xl font-bold text-gray-900">
+                    <span className={`text-3xl sm:text-4xl font-bold ${
+                      selectedPlan === plan.id && theme === 'dark'
+                        ? 'bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent'
+                        : theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    }`}>
                       {plan.id === "enterprise" ? plan.price : `$${plan.price}`}
                     </span>
-                    <span className="text-gray-600">{plan.period}</span>
+                    <span className={`text-lg ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>{plan.period}</span>
                   </div>
                   <ul className="space-y-2 mb-6">
                     {plan.features.map((feature, index) => (
-                      <li key={index} className="flex items-start">
-                        <svg className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      <li key={index} className={`flex items-start ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                        <svg className={`w-5 h-5 mr-2 flex-shrink-0 mt-0.5 ${
+                          selectedPlan === plan.id && theme === 'dark'
+                            ? 'text-indigo-400 drop-shadow-lg'
+                            : 'text-green-500'
+                        }`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
-                        <span className="text-sm text-gray-700">{feature}</span>
+                        {feature}
                       </li>
                     ))}
                   </ul>
-                  <button
-                    className={`w-full py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:scale-105 ${
-                      selectedPlan === plan.id
+                  <button className={`w-full py-2 px-4 rounded-md font-medium transition-colors duration-200 ${
+                    plan.current
+                      ? "bg-gray-200 text-gray-800 cursor-not-allowed"
+                      : theme === 'dark'
                         ? "bg-indigo-600 text-white hover:bg-indigo-700"
-                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                    }`}
+                        : "bg-indigo-600 text-white hover:bg-indigo-700"
+                  }`}
+                  disabled={plan.current}
                   >
-                    {plan.id === selectedPlan ? "Current Plan" : "Upgrade"}
+                    {plan.current ? "Current Plan" : "Select Plan"}
                   </button>
                 </div>
               ))}
@@ -316,18 +336,38 @@ export default function Billing() {
               {/* Add New Payment Method Card */}
               <div 
                 onClick={() => setShowAddCardModal(true)}
-                className="p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-indigo-400 hover:bg-indigo-50 transition-all duration-200 cursor-pointer group"
+                className={`p-4 border-2 border-dashed rounded-lg transition-all duration-300 cursor-pointer group ${
+                  theme === 'dark'
+                    ? 'border-gray-600 hover:border-indigo-400 hover:bg-gradient-to-br hover:from-indigo-900/30 hover:to-purple-900/30 hover:shadow-lg hover:shadow-indigo-500/20 hover:scale-105'
+                    : 'border-gray-300 hover:border-indigo-400 hover:bg-gradient-to-br hover:from-indigo-50 hover:to-purple-50 hover:shadow-md hover:scale-105'
+                }`}
               >
                 <div className="flex flex-col items-center justify-center py-8 text-center">
-                  <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-3 group-hover:bg-indigo-100 transition-colors duration-200">
-                    <svg className="w-6 h-6 text-gray-400 group-hover:text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-3 transition-all duration-300 ${
+                    theme === 'dark'
+                      ? 'bg-gray-700 group-hover:bg-gradient-to-br group-hover:from-indigo-500 group-hover:to-purple-500 group-hover:shadow-lg group-hover:shadow-indigo-500/50 group-hover:scale-110'
+                      : 'bg-gray-100 group-hover:bg-gradient-to-br group-hover:from-indigo-500 group-hover:to-purple-500 group-hover:shadow-lg group-hover:scale-110'
+                  }`}>
+                    <svg className={`w-6 h-6 transition-colors duration-300 ${
+                      theme === 'dark'
+                        ? 'text-gray-400 group-hover:text-white'
+                        : 'text-gray-400 group-hover:text-white'
+                    }`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                     </svg>
                   </div>
-                  <p className="text-sm font-medium text-gray-900 group-hover:text-indigo-600 transition-colors duration-200">
+                  <p className={`text-sm font-medium transition-colors duration-300 ${
+                    theme === 'dark'
+                      ? 'text-gray-300 group-hover:text-white group-hover:drop-shadow-lg'
+                      : 'text-gray-900 group-hover:text-indigo-600'
+                  }`}>
                     Add New Card
                   </p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className={`text-xs mt-1 transition-colors duration-300 ${
+                    theme === 'dark'
+                      ? 'text-gray-500 group-hover:text-gray-300'
+                      : 'text-gray-500 group-hover:text-indigo-500'
+                  }`}>
                     Credit or debit card
                   </p>
                 </div>

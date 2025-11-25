@@ -1,18 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { DashboardLayout } from "@/components/DashboardLayout";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function Profile() {
   const { user, logout } = useAuth();
+  const { theme } = useTheme();
   const [isEditing, setIsEditing] = useState(false);
   const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "success" | "error">("idle");
+  
+  // Initialize form with default values
   const [formData, setFormData] = useState({
-    firstName: user?.firstName || "",
-    lastName: user?.lastName || "",
-    email: user?.email || "",
+    firstName: "",
+    lastName: "",
+    email: "",
     phone: "+1 (555) 123-4567",
     bio: "Passionate developer and tech enthusiast. Love building amazing web applications.",
     location: "San Francisco, CA",
@@ -20,6 +24,43 @@ export default function Profile() {
     github: "myusername",
     twitter: "@myusername",
   });
+
+  // Update form data when user data is available
+  useEffect(() => {
+    if (user) {
+      // First try to load from localStorage, then fallback to user data
+      const savedProfile = localStorage.getItem("userProfile");
+      if (savedProfile) {
+        const parsedProfile = JSON.parse(savedProfile);
+        setFormData(prev => ({
+          ...prev,
+          firstName: parsedProfile.firstName || user.firstName || prev.firstName,
+          lastName: parsedProfile.lastName || user.lastName || prev.lastName,
+          email: parsedProfile.email || user.email || prev.email,
+          phone: parsedProfile.phone || prev.phone,
+          bio: parsedProfile.bio || prev.bio,
+          location: parsedProfile.location || prev.location,
+          website: parsedProfile.website || prev.website,
+          github: parsedProfile.github || prev.github,
+          twitter: parsedProfile.twitter || prev.twitter,
+        }));
+      } else {
+        setFormData(prev => ({
+          ...prev,
+          firstName: user.firstName || prev.firstName,
+          lastName: user.lastName || prev.lastName,
+          email: user.email || prev.email,
+        }));
+      }
+    }
+  }, [user]);
+
+  // Save form data to localStorage whenever it changes
+  useEffect(() => {
+    if (formData.firstName || formData.lastName || formData.email) {
+      localStorage.setItem("userProfile", JSON.stringify(formData));
+    }
+  }, [formData]);
 
   const [preferences, setPreferences] = useState({
     emailNotifications: true,
@@ -52,6 +93,9 @@ export default function Profile() {
       // Simulate API call to save profile
       await new Promise(resolve => setTimeout(resolve, 1500));
       
+      // Save to localStorage (this is already handled by useEffect, but ensuring it's saved)
+      localStorage.setItem("userProfile", JSON.stringify(formData));
+      
       // In a real app, this would save to a backend
       console.log("Saving profile:", formData);
       console.log("Saving preferences:", preferences);
@@ -75,17 +119,36 @@ export default function Profile() {
   };
 
   const handleCancel = () => {
-    setFormData({
-      firstName: user?.firstName || "",
-      lastName: user?.lastName || "",
-      email: user?.email || "",
-      phone: "+1 (555) 123-4567",
-      bio: "Passionate developer and tech enthusiast. Love building amazing web applications.",
-      location: "San Francisco, CA",
-      website: "https://mywebsite.com",
-      github: "myusername",
-      twitter: "@myusername",
-    });
+    // Reset to saved data from localStorage or user data
+    const savedProfile = localStorage.getItem("userProfile");
+    if (savedProfile) {
+      const parsedProfile = JSON.parse(savedProfile);
+      setFormData(prev => ({
+        ...prev,
+        firstName: parsedProfile.firstName || user?.firstName || "",
+        lastName: parsedProfile.lastName || user?.lastName || "",
+        email: parsedProfile.email || user?.email || "",
+        phone: parsedProfile.phone || "+1 (555) 123-4567",
+        bio: parsedProfile.bio || "Passionate developer and tech enthusiast. Love building amazing web applications.",
+        location: parsedProfile.location || "San Francisco, CA",
+        website: parsedProfile.website || "https://mywebsite.com",
+        github: parsedProfile.github || "myusername",
+        twitter: parsedProfile.twitter || "@myusername",
+      }));
+    } else {
+      // Reset to original user data
+      setFormData({
+        firstName: user?.firstName || "",
+        lastName: user?.lastName || "",
+        email: user?.email || "",
+        phone: "+1 (555) 123-4567",
+        bio: "Passionate developer and tech enthusiast. Love building amazing web applications.",
+        location: "San Francisco, CA",
+        website: "https://mywebsite.com",
+        github: "myusername",
+        twitter: "@myusername",
+      });
+    }
     setIsEditing(false);
     setSaveStatus("idle");
   };
@@ -95,43 +158,7 @@ export default function Profile() {
       <DashboardLayout 
         title="Profile" 
         subtitle="Manage your personal information and preferences"
-        actions={
-          isEditing ? (
-            <>
-              <button
-                onClick={handleCancel}
-                disabled={saveStatus === "saving"}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleSave}
-                disabled={saveStatus === "saving"}
-                className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
-              >
-                {saveStatus === "saving" ? (
-                  <>
-                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Saving...
-                  </>
-                ) : (
-                  "Save Changes"
-                )}
-              </button>
-            </>
-          ) : (
-            <button
-              onClick={() => setIsEditing(true)}
-              className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
-            >
-              Edit Profile
-            </button>
-          )
-        }
+        actions={null}
       >
         <div className="max-w-4xl mx-auto">
           {saveStatus === "success" && (
@@ -169,15 +196,54 @@ export default function Profile() {
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h2 className="text-xl sm:text-2xl font-bold text-gray-900 truncate">
-                      {user?.firstName} {user?.lastName}
-                    </h2>
-                    <p className="text-gray-600 truncate">{user?.email}</p>
-                    <div className="flex flex-wrap items-center gap-2 mt-2">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        Premium Account
-                      </span>
-                      <span className="text-sm text-gray-500">Member since January 2024</span>
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                      <div>
+                        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 truncate">
+                          {user?.firstName} {user?.lastName}
+                        </h2>
+                        <p className="text-gray-600 truncate">{user?.email}</p>
+                        <div className="flex flex-wrap items-center gap-2 mt-2">
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            Premium Account
+                          </span>
+                          <span className="text-sm text-gray-500">Member since January 2024</span>
+                        </div>
+                      </div>
+                      {isEditing ? (
+                        <div className="flex items-center gap-2 flex-shrink-0">
+                          <button
+                            onClick={handleCancel}
+                            disabled={saveStatus === "saving"}
+                            className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            onClick={handleSave}
+                            disabled={saveStatus === "saving"}
+                            className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center transition-colors duration-200"
+                          >
+                            {saveStatus === "saving" ? (
+                              <>
+                                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Saving...
+                              </>
+                            ) : (
+                              "Save Changes"
+                            )}
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => setIsEditing(true)}
+                          className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 transition-colors duration-200 flex-shrink-0"
+                        >
+                          Edit Profile
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
