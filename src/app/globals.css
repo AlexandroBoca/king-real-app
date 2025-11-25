@@ -87,11 +87,24 @@ textarea::placeholder {
 input:focus,
 textarea:focus,
 input:focus-visible,
-textarea:focus-visible {
+textarea:focus-visible,
+input[type="email"]:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="tel"]:focus {
   background-color: white !important;
   box-shadow: 0 0 0 1px #d1d5db !important;
   border-color: #d1d5db !important;
   outline: none !important;
+}
+
+/* Extra specific rules for any remaining blue focus */
+*:focus {
+  background-color: white !important;
+}
+
+*:focus-visible {
+  background-color: white !important;
 }
 
 /* Dark mode shadows */
