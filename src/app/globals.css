@@ -39,6 +39,7 @@ body {
 /* Force checkboxes to have white background when not checked */
 input[type="checkbox"]:not(:checked) {
   background-color: white !important;
+  border: 2px solid #d1d5db !important;
 }
 
 /* Dark mode shadows */
