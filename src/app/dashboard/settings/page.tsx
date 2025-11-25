@@ -4,10 +4,12 @@ import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { DashboardLayout } from "@/components/DashboardLayout";
+import { useTheme } from "@/contexts/ThemeContext";
 import Link from "next/link";
 
 export default function Settings() {
   const { user } = useAuth();
+  const { theme } = useTheme();
   const [activeTab, setActiveTab] = useState("profile");
   const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "success" | "error">("idle");
   const [formData, setFormData] = useState({
@@ -78,79 +80,79 @@ export default function Settings() {
 
   const renderProfileTab = () => (
     <div className="space-y-6">
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h3 className="text-lg font-medium text-gray-900 mb-4">Personal Information</h3>
+      <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} p-6 rounded-lg shadow`}>
+        <h3 className={`text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Personal Information</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">First Name</label>
+            <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>First Name</label>
             <input
               type="text"
               name="firstName"
               value={formData.firstName}
               onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className={`mt-1 block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Last Name</label>
+            <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Last Name</label>
             <input
               type="text"
               name="lastName"
               value={formData.lastName}
               onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className={`mt-1 block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Email</label>
+            <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Email</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className={`mt-1 block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Phone</label>
+            <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Phone</label>
             <input
               type="tel"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className={`mt-1 block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
             />
           </div>
         </div>
         <div className="mt-4">
-          <label className="block text-sm font-medium text-gray-700">Bio</label>
+          <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Bio</label>
           <textarea
             name="bio"
             value={formData.bio}
             onChange={handleChange}
             rows={3}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            className={`mt-1 block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
           />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Location</label>
+            <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Location</label>
             <input
               type="text"
               name="location"
               value={formData.location}
               onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className={`mt-1 block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Website</label>
+            <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Website</label>
             <input
               type="url"
               name="website"
               value={formData.website}
               onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className={`mt-1 block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
             />
           </div>
         </div>
@@ -160,85 +162,85 @@ export default function Settings() {
 
   const renderNotificationsTab = () => (
     <div className="space-y-6">
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h3 className="text-lg font-medium text-gray-900 mb-4">Notification Preferences</h3>
+      <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} p-6 rounded-lg shadow`}>
+        <h3 className={`text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Notification Preferences</h3>
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="text-sm font-medium text-gray-900">Email Notifications</h4>
-              <p className="text-sm text-gray-500">Receive notifications via email</p>
+              <h4 className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Email Notifications</h4>
+              <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Receive notifications via email</p>
             </div>
             <input
               type="checkbox"
               name="emailNotifications"
               checked={formData.emailNotifications}
               onChange={handleChange}
-              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+              className={`h-4 w-4 text-indigo-600 focus:ring-indigo-500 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded`}
             />
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="text-sm font-medium text-gray-900">Push Notifications</h4>
-              <p className="text-sm text-gray-500">Receive push notifications on your device</p>
+              <h4 className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Push Notifications</h4>
+              <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Receive push notifications on your device</p>
             </div>
             <input
               type="checkbox"
               name="pushNotifications"
               checked={formData.pushNotifications}
               onChange={handleChange}
-              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+              className={`h-4 w-4 text-indigo-600 focus:ring-indigo-500 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded`}
             />
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="text-sm font-medium text-gray-900">SMS Notifications</h4>
-              <p className="text-sm text-gray-500">Receive notifications via SMS</p>
+              <h4 className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>SMS Notifications</h4>
+              <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Receive notifications via SMS</p>
             </div>
             <input
               type="checkbox"
               name="smsNotifications"
               checked={formData.smsNotifications}
               onChange={handleChange}
-              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+              className={`h-4 w-4 text-indigo-600 focus:ring-indigo-500 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded`}
             />
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="text-sm font-medium text-gray-900">Marketing Emails</h4>
-              <p className="text-sm text-gray-500">Receive marketing and promotional emails</p>
+              <h4 className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Marketing Emails</h4>
+              <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Receive marketing and promotional emails</p>
             </div>
             <input
               type="checkbox"
               name="marketingEmails"
               checked={formData.marketingEmails}
               onChange={handleChange}
-              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+              className={`h-4 w-4 text-indigo-600 focus:ring-indigo-500 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded`}
             />
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="text-sm font-medium text-gray-900">Security Alerts</h4>
-              <p className="text-sm text-gray-500">Get notified about security-related events</p>
+              <h4 className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Security Alerts</h4>
+              <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Get notified about security-related events</p>
             </div>
             <input
               type="checkbox"
               name="securityAlerts"
               checked={formData.securityAlerts}
               onChange={handleChange}
-              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+              className={`h-4 w-4 text-indigo-600 focus:ring-indigo-500 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded`}
             />
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="text-sm font-medium text-gray-900">Weekly Digest</h4>
-              <p className="text-sm text-gray-500">Receive a weekly summary of your activity</p>
+              <h4 className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Weekly Digest</h4>
+              <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Receive a weekly summary of your activity</p>
             </div>
             <input
               type="checkbox"
               name="weeklyDigest"
               checked={formData.weeklyDigest}
               onChange={handleChange}
-              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+              className={`h-4 w-4 text-indigo-600 focus:ring-indigo-500 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded`}
             />
           </div>
         </div>
@@ -248,16 +250,16 @@ export default function Settings() {
 
   const renderPrivacyTab = () => (
     <div className="space-y-6">
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h3 className="text-lg font-medium text-gray-900 mb-4">Privacy Settings</h3>
+      <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} p-6 rounded-lg shadow`}>
+        <h3 className={`text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Privacy Settings</h3>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Profile Visibility</label>
+            <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Profile Visibility</label>
             <select
               name="profileVisibility"
               value={formData.profileVisibility}
               onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className={`mt-1 block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
             >
               <option value="public">Public</option>
               <option value="friends">Friends Only</option>
@@ -266,47 +268,47 @@ export default function Settings() {
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="text-sm font-medium text-gray-900">Show Email</h4>
-              <p className="text-sm text-gray-500">Display your email on your profile</p>
+              <h4 className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Show Email</h4>
+              <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Display your email on your profile</p>
             </div>
             <input
               type="checkbox"
               name="showEmail"
               checked={formData.showEmail}
               onChange={handleChange}
-              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+              className={`h-4 w-4 text-indigo-600 focus:ring-indigo-500 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded`}
             />
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="text-sm font-medium text-gray-900">Show Phone</h4>
-              <p className="text-sm text-gray-500">Display your phone number on your profile</p>
+              <h4 className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Show Phone</h4>
+              <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Display your phone number on your profile</p>
             </div>
             <input
               type="checkbox"
               name="showPhone"
               checked={formData.showPhone}
               onChange={handleChange}
-              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+              className={`h-4 w-4 text-indigo-600 focus:ring-indigo-500 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded`}
             />
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="text-sm font-medium text-gray-900">Allow Messages</h4>
-              <p className="text-sm text-gray-500">Let other users send you messages</p>
+              <h4 className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Allow Messages</h4>
+              <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Let other users send you messages</p>
             </div>
             <input
               type="checkbox"
               name="allowMessages"
               checked={formData.allowMessages}
               onChange={handleChange}
-              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+              className={`h-4 w-4 text-indigo-600 focus:ring-indigo-500 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded`}
             />
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="text-sm font-medium text-gray-900">Two-Factor Authentication</h4>
-              <p className="text-sm text-gray-500">Add an extra layer of security to your account</p>
+              <h4 className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Two-Factor Authentication</h4>
+              <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Add an extra layer of security to your account</p>
             </div>
             <button
               type="button"
@@ -322,16 +324,16 @@ export default function Settings() {
 
   const renderAppearanceTab = () => (
     <div className="space-y-6">
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h3 className="text-lg font-medium text-gray-900 mb-4">Appearance Preferences</h3>
+      <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} p-6 rounded-lg shadow`}>
+        <h3 className={`text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Appearance Preferences</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Theme</label>
+            <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Theme</label>
             <select
               name="theme"
               value={formData.theme}
               onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className={`mt-1 block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
             >
               <option value="light">Light</option>
               <option value="dark">Dark</option>
@@ -339,12 +341,12 @@ export default function Settings() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Language</label>
+            <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Language</label>
             <select
               name="language"
               value={formData.language}
               onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className={`mt-1 block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
             >
               <option value="en">English</option>
               <option value="es">Español</option>
@@ -354,12 +356,12 @@ export default function Settings() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Timezone</label>
+            <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Timezone</label>
             <select
               name="timezone"
               value={formData.timezone}
               onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className={`mt-1 block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
             >
               <option value="UTC">UTC</option>
               <option value="EST">Eastern Time</option>
@@ -369,12 +371,12 @@ export default function Settings() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Date Format</label>
+            <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Date Format</label>
             <select
               name="dateFormat"
               value={formData.dateFormat}
               onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className={`mt-1 block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
             >
               <option value="MM/DD/YYYY">MM/DD/YYYY</option>
               <option value="DD/MM/YYYY">DD/MM/YYYY</option>
@@ -382,12 +384,12 @@ export default function Settings() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Time Format</label>
+            <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Time Format</label>
             <select
               name="timeFormat"
               value={formData.timeFormat}
               onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className={`mt-1 block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
             >
               <option value="12h">12-hour</option>
               <option value="24h">24-hour</option>
@@ -400,37 +402,37 @@ export default function Settings() {
 
   const renderAccountTab = () => (
     <div className="space-y-6">
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h3 className="text-lg font-medium text-gray-900 mb-4">Change Password</h3>
+      <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} p-6 rounded-lg shadow`}>
+        <h3 className={`text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Change Password</h3>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Current Password</label>
+            <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Current Password</label>
             <input
               type="password"
               name="currentPassword"
               value={formData.currentPassword}
               onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className={`mt-1 block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">New Password</label>
+            <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>New Password</label>
             <input
               type="password"
               name="newPassword"
               value={formData.newPassword}
               onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className={`mt-1 block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Confirm New Password</label>
+            <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Confirm New Password</label>
             <input
               type="password"
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className={`mt-1 block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
             />
           </div>
           <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
@@ -439,14 +441,14 @@ export default function Settings() {
         </div>
       </div>
 
-      <div className="bg-white p-6 rounded-lg shadow border border-red-200">
-        <h3 className="text-lg font-medium text-red-900 mb-4">Danger Zone</h3>
+      <div className={`${theme === 'dark' ? 'bg-gray-800 border-red-700' : 'bg-white border-red-200'} p-6 rounded-lg shadow border`}>
+        <h3 className={`text-lg font-medium ${theme === 'dark' ? 'text-red-400' : 'text-red-900'} mb-4`}>Danger Zone</h3>
         <div className="space-y-4">
-          <p className="text-sm text-gray-600">
+          <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
             Once you delete your account, there is no going back. Please be certain.
           </p>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} mb-2`}>
               Type "DELETE" to confirm account deletion
             </label>
             <input
@@ -455,7 +457,7 @@ export default function Settings() {
               value={formData.deleteAccountText}
               onChange={handleChange}
               placeholder="DELETE"
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-red-500 focus:border-red-500"
+              className={`block w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-red-500 focus:border-red-500`}
             />
           </div>
           <button
@@ -471,10 +473,10 @@ export default function Settings() {
 
   const renderBillingTab = () => (
     <div className="space-y-6">
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h3 className="text-lg font-medium text-gray-900 mb-4">Billing Management</h3>
+      <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} p-6 rounded-lg shadow`}>
+        <h3 className={`text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Billing Management</h3>
         <div className="text-center py-8">
-          <p className="text-gray-600 mb-4">Manage your subscription and billing preferences</p>
+          <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mb-4`}>Manage your subscription and billing preferences</p>
           <Link
             href="/billing"
             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
@@ -523,18 +525,18 @@ export default function Settings() {
         <div className="max-w-4xl mx-auto">
           {/* Success/Error Messages */}
           {saveStatus === "success" && (
-            <div className="mb-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded">
+            <div className={`mb-4 ${theme === 'dark' ? 'bg-green-900 border-green-700 text-green-300' : 'bg-green-50 border-green-200 text-green-700'} border px-4 py-3 rounded`}>
               Settings saved successfully!
             </div>
           )}
           {saveStatus === "error" && (
-            <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+            <div className={`mb-4 ${theme === 'dark' ? 'bg-red-900 border-red-700 text-red-300' : 'bg-red-50 border-red-200 text-red-700'} border px-4 py-3 rounded`}>
               Error saving settings. Please try again.
             </div>
           )}
 
           {/* Tab Navigation */}
-          <div className="border-b border-gray-200 mb-6">
+          <div className={`border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'} mb-6`}>
             <nav className="-mb-px flex space-x-8 overflow-x-auto">
               {tabs.map((tab) => (
                 <button
@@ -543,7 +545,9 @@ export default function Settings() {
                   className={`whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm ${
                     activeTab === tab.id
                       ? "border-indigo-500 text-indigo-600"
-                      : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                      : theme === 'dark'
+                        ? "border-transparent text-gray-400 hover:text-gray-300 hover:border-gray-600"
+                        : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                   }`}
                 >
                   <span className="mr-2">{tab.icon}</span>

@@ -3,11 +3,13 @@
 import { useAuth } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { DashboardLayout } from "@/components/DashboardLayout";
+import { useTheme } from "@/contexts/ThemeContext";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
 export default function Analytics() {
   const { user } = useAuth();
+  const { theme } = useTheme();
   const [selectedPeriod, setSelectedPeriod] = useState("month");
   const [selectedMetric, setSelectedMetric] = useState("revenue");
   const [isLoading, setIsLoading] = useState(true);
@@ -174,7 +176,7 @@ export default function Analytics() {
         subtitle="Track your performance metrics and gain insights into your business."
         actions={
           <div className="flex items-center space-x-3">
-            <button className="bg-white text-gray-700 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors duration-200">
+            <button className={`${theme === 'dark' ? 'bg-gray-800 text-gray-300 border-gray-600 hover:bg-gray-700' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'} px-4 py-2 rounded-lg border transition-colors duration-200`}>
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
@@ -191,11 +193,11 @@ export default function Analytics() {
       >
         <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
           {/* Period Selector */}
-          <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">
+          <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-sm p-4 sm:p-6`}>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">Analytics Overview</h3>
-                <p className="text-sm text-gray-600 mt-1">Monitor your key performance indicators</p>
+                <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Analytics Overview</h3>
+                <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mt-1`}>Monitor your key performance indicators</p>
               </div>
               <div className="flex items-center space-x-2">
                 {periods.map((period) => (
@@ -204,8 +206,10 @@ export default function Analytics() {
                     onClick={() => setSelectedPeriod(period.id)}
                     className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors duration-200 ${
                       selectedPeriod === period.id
-                        ? "bg-indigo-100 text-indigo-700"
-                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                        ? theme === 'dark' ? 'bg-indigo-900 text-indigo-300' : 'bg-indigo-100 text-indigo-700'
+                        : theme === 'dark'
+                          ? 'text-gray-400 hover:text-gray-200 hover:bg-gray-700'
+                          : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                     }`}
                   >
                     {period.name}
@@ -220,12 +224,12 @@ export default function Analytics() {
             {metrics.map((metric, index) => (
               <div
                 key={metric.id}
-                className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 cursor-pointer overflow-hidden group"
+                className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 cursor-pointer overflow-hidden group`}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-4">
-                    <div className={`${metric.bgColor} p-3 rounded-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <div className={`p-3 rounded-lg group-hover:scale-110 transition-transform duration-300 ${theme === 'dark' ? '' : metric.bgColor}`}>
                       {metric.icon}
                     </div>
                     <div className={`flex items-center text-sm font-medium ${
@@ -243,8 +247,8 @@ export default function Analytics() {
                     </div>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-600 mb-1">{metric.name}</p>
-                    <p className={`text-2xl font-bold text-gray-900 ${isLoading ? 'animate-pulse' : ''}`}>
+                    <p className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mb-1`}>{metric.name}</p>
+                    <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} ${isLoading ? 'animate-pulse' : ''}`}>
                       {isLoading ? '---' : metric.value}
                     </p>
                   </div>
@@ -274,19 +278,21 @@ export default function Analytics() {
           {/* Main Chart and Traffic Sources */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
             {/* Revenue Chart */}
-            <div className="lg:col-span-2 bg-white rounded-xl shadow-sm p-6">
+            <div className={`lg:col-span-2 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-sm p-6`}>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Performance Trends</h3>
-                  <p className="text-sm text-gray-600 mt-1">Track your metrics over time</p>
+                  <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Performance Trends</h3>
+                  <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mt-1`}>Track your metrics over time</p>
                 </div>
                 <div className="flex items-center space-x-2 mt-4 sm:mt-0">
                   <button
                     onClick={() => setSelectedMetric("revenue")}
                     className={`px-3 py-1 text-sm font-medium rounded-lg transition-colors duration-200 ${
                       selectedMetric === "revenue"
-                        ? "bg-indigo-100 text-indigo-700"
-                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                        ? theme === 'dark' ? 'bg-indigo-900 text-indigo-300' : 'bg-indigo-100 text-indigo-700'
+                        : theme === 'dark'
+                          ? 'text-gray-400 hover:text-gray-200 hover:bg-gray-700'
+                          : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                     }`}
                   >
                     Revenue
@@ -295,8 +301,10 @@ export default function Analytics() {
                     onClick={() => setSelectedMetric("users")}
                     className={`px-3 py-1 text-sm font-medium rounded-lg transition-colors duration-200 ${
                       selectedMetric === "users"
-                        ? "bg-indigo-100 text-indigo-700"
-                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                        ? theme === 'dark' ? 'bg-indigo-900 text-indigo-300' : 'bg-indigo-100 text-indigo-700'
+                        : theme === 'dark'
+                          ? 'text-gray-400 hover:text-gray-200 hover:bg-gray-700'
+                          : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                     }`}
                   >
                     Users
@@ -312,7 +320,7 @@ export default function Analytics() {
                       <div className="w-full flex flex-col items-center justify-end h-full relative">
                         {/* Target Line */}
                         <div
-                          className="absolute w-full border-t-2 border-dashed border-gray-300"
+                          className={`absolute w-full border-t-2 border-dashed ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'}`}
                           style={{ bottom: `${(data.target / getMaxValue()) * 100}%` }}
                         ></div>
                         {/* Actual Bar */}
@@ -325,40 +333,40 @@ export default function Analytics() {
                           }}
                         ></div>
                       </div>
-                      <span className="text-xs text-gray-600 mt-2">{data.month}</span>
+                      <span className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mt-2`}>{data.month}</span>
                     </div>
                   ))}
                 </div>
                 <div className="flex items-center justify-center space-x-6 mt-4 text-sm">
                   <div className="flex items-center">
                     <div className="w-3 h-3 bg-gradient-to-t from-indigo-500 to-indigo-400 rounded-full mr-2"></div>
-                    <span className="text-gray-600">Actual</span>
+                    <span className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Actual</span>
                   </div>
                   <div className="flex items-center">
-                    <div className="w-3 h-3 border-t-2 border-dashed border-gray-300 rounded-full mr-2"></div>
-                    <span className="text-gray-600">Target</span>
+                    <div className={`w-3 h-3 border-t-2 border-dashed ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded-full mr-2`}></div>
+                    <span className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Target</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Traffic Sources */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-6">Traffic Sources</h3>
+            <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-sm p-6`}>
+              <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-6`}>Traffic Sources</h3>
               <div className="space-y-4">
                 {trafficSources.map((source, index) => (
                   <div key={source.source} className="space-y-2">
                     <div className="flex items-center justify-between text-sm">
-                      <span className="font-medium text-gray-900">{source.source}</span>
-                      <span className="text-gray-600">{source.percentage}%</span>
+                      <span className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{source.source}</span>
+                      <span className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>{source.percentage}%</span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className={`w-full ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'} rounded-full h-2`}>
                       <div
                         className={`${source.color} h-2 rounded-full transition-all duration-500 hover:opacity-80`}
                         style={{ width: `${source.percentage}%`, animationDelay: `${index * 100}ms` }}
                       ></div>
                     </div>
-                    <div className="text-xs text-gray-500">{source.visitors.toLocaleString()} visitors</div>
+                    <div className={`text-xs ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'}`}>{source.visitors.toLocaleString()} visitors</div>
                   </div>
                 ))}
               </div>
@@ -368,10 +376,10 @@ export default function Analytics() {
           {/* Top Pages and Devices */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             {/* Top Pages */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-sm p-6`}>
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold text-gray-900">Top Pages</h3>
-                <button className="text-sm text-indigo-600 hover:text-indigo-700 font-medium">
+                <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-6`}>Top Pages</h3>
+                <button className={`text-sm ${theme === 'dark' ? 'text-indigo-400 hover:text-indigo-300' : 'text-indigo-600 hover:text-indigo-700'} font-medium`}>
                   View All
                 </button>
               </div>
@@ -379,24 +387,24 @@ export default function Analytics() {
                 {topPages.map((page, index) => (
                   <div
                     key={page.page}
-                    className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200 cursor-pointer group"
+                    className={`flex items-center justify-between p-3 rounded-lg ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-50'} transition-colors duration-200 cursor-pointer group`}
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     <div className="flex-1">
                       <div className="flex items-center">
-                        <span className="text-sm font-medium text-gray-900 group-hover:text-indigo-600 transition-colors duration-200">
+                        <span className={`text-sm font-medium ${theme === 'dark' ? 'text-white group-hover:text-indigo-400' : 'text-gray-900 group-hover:text-indigo-600'} transition-colors duration-200`}>
                           {page.page}
                         </span>
-                        <span className="ml-2 text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                        <span className={`ml-2 text-xs ${theme === 'dark' ? 'text-gray-400 bg-gray-700' : 'text-gray-500 bg-gray-100'} px-2 py-1 rounded`}>
                           {page.views.toLocaleString()} views
                         </span>
                       </div>
-                      <div className="flex items-center space-x-4 mt-1 text-xs text-gray-600">
+                      <div className={`flex items-center space-x-4 mt-1 text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                         <span>Bounce: {page.bounceRate}%</span>
                         <span>Avg time: {page.avgTime}</span>
                       </div>
                     </div>
-                    <svg className="w-4 h-4 text-gray-400 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className={`w-4 h-4 ${theme === 'dark' ? 'text-gray-500 group-hover:text-indigo-400' : 'text-gray-400 group-hover:text-indigo-600'} group-hover:translate-x-1 transition-all duration-200`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </div>
@@ -405,11 +413,11 @@ export default function Analytics() {
             </div>
 
             {/* Device Breakdown */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-6">Device Breakdown</h3>
+            <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-sm p-6`}>
+              <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-6`}>Device Breakdown</h3>
               <div className="space-y-4">
                 {devices.map((device, index) => (
-                  <div key={device.device} className="flex items-center justify-between p-4 rounded-lg border border-gray-200 hover:border-indigo-300 hover:shadow-md transition-all duration-200 cursor-pointer group">
+                  <div className={`flex items-center justify-between p-4 rounded-lg border ${theme === 'dark' ? 'border-gray-700 hover:border-indigo-400' : 'border-gray-200 hover:border-indigo-300'} hover:shadow-md transition-all duration-200 cursor-pointer group`}>
                     <div className="flex items-center">
                       <div className={`w-10 h-10 ${device.color} rounded-lg flex items-center justify-center mr-3 group-hover:scale-110 transition-transform duration-300`}>
                         {device.device === "Desktop" && (
@@ -429,13 +437,13 @@ export default function Analytics() {
                         )}
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-gray-900">{device.device}</p>
-                        <p className="text-xs text-gray-600">{device.users.toLocaleString()} users</p>
+                        <p className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{device.device}</p>
+                        <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>{device.users.toLocaleString()} users</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-lg font-semibold text-gray-900">{device.percentage}%</p>
-                      <div className="w-16 bg-gray-200 rounded-full h-2 mt-1">
+                      <p className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{device.percentage}%</p>
+                      <div className={`w-16 ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'} rounded-full h-2 mt-1`}>
                         <div
                           className={`${device.color} h-2 rounded-full transition-all duration-500`}
                           style={{ width: `${device.percentage}%` }}
@@ -450,44 +458,44 @@ export default function Analytics() {
 
           {/* Additional Metrics */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-sm p-6`}>
               <div className="flex items-center justify-between mb-4">
-                <h4 className="text-sm font-medium text-gray-600">Bounce Rate</h4>
-                <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center">
-                  <svg className="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <h4 className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Bounce Rate</h4>
+                <div className={`w-8 h-8 ${theme === 'dark' ? 'bg-red-900' : 'bg-red-100'} rounded-lg flex items-center justify-center`}>
+                  <svg className={`w-4 h-4 ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
                   </svg>
                 </div>
               </div>
-              <p className="text-2xl font-bold text-gray-900">{animatedMetrics.bounceRate}%</p>
-              <p className="text-xs text-red-600 mt-1">+2.3% from last period</p>
+              <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{animatedMetrics.bounceRate}%</p>
+              <p className={`text-xs ${theme === 'dark' ? 'text-red-400' : 'text-red-600'} mt-1`}>+2.3% from last period</p>
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-sm p-6`}>
               <div className="flex items-center justify-between mb-4">
-                <h4 className="text-sm font-medium text-gray-600">Page Views</h4>
-                <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <h4 className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Page Views</h4>
+                <div className={`w-8 h-8 ${theme === 'dark' ? 'bg-blue-900' : 'bg-blue-100'} rounded-lg flex items-center justify-center`}>
+                  <svg className={`w-4 h-4 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                   </svg>
                 </div>
               </div>
-              <p className="text-2xl font-bold text-gray-900">{animatedMetrics.pageViews.toLocaleString()}</p>
-              <p className="text-xs text-green-600 mt-1">+18.2% from last period</p>
+              <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{animatedMetrics.pageViews.toLocaleString()}</p>
+              <p className={`text-xs ${theme === 'dark' ? 'text-green-400' : 'text-green-600'} mt-1`}>+18.2% from last period</p>
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-sm p-6`}>
               <div className="flex items-center justify-between mb-4">
-                <h4 className="text-sm font-medium text-gray-600">Session Duration</h4>
-                <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                  <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <h4 className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Session Duration</h4>
+                <div className={`w-8 h-8 ${theme === 'dark' ? 'bg-purple-900' : 'bg-purple-100'} rounded-lg flex items-center justify-center`}>
+                  <svg className={`w-4 h-4 ${theme === 'dark' ? 'text-purple-400' : 'text-purple-600'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
               </div>
-              <p className="text-2xl font-bold text-gray-900">4m 32s</p>
-              <p className="text-xs text-green-600 mt-1">+12.8% from last period</p>
+              <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>4m 32s</p>
+              <p className={`text-xs ${theme === 'dark' ? 'text-green-400' : 'text-green-600'} mt-1`}>+12.8% from last period</p>
             </div>
           </div>
         </div>

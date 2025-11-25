@@ -162,7 +162,7 @@ export default function Profile() {
       >
         <div className="max-w-4xl mx-auto">
           {saveStatus === "success" && (
-            <div className="mb-4 flex items-center text-sm text-green-600 bg-green-50 p-3 rounded-md">
+            <div className={`mb-4 flex items-center text-sm ${theme === 'dark' ? 'text-green-400 bg-green-900' : 'text-green-600 bg-green-50'} p-3 rounded-md`}>
               <svg className="h-4 w-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
@@ -170,7 +170,7 @@ export default function Profile() {
             </div>
           )}
           {saveStatus === "error" && (
-            <div className="mb-4 flex items-center text-sm text-red-600 bg-red-50 p-3 rounded-md">
+            <div className={`mb-4 flex items-center text-sm ${theme === 'dark' ? 'text-red-400 bg-red-900' : 'text-red-600 bg-red-50'} p-3 rounded-md`}>
               <svg className="h-4 w-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
               </svg>
@@ -198,15 +198,15 @@ export default function Profile() {
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                       <div>
-                        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 truncate">
+                        <h2 className={`text-xl sm:text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} truncate`}>
                           {user?.firstName} {user?.lastName}
                         </h2>
-                        <p className="text-gray-600 truncate">{user?.email}</p>
+                        <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} truncate`}>{user?.email}</p>
                         <div className="flex flex-wrap items-center gap-2 mt-2">
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${theme === 'dark' ? 'bg-green-900 text-green-300' : 'bg-green-100 text-green-800'}`}>
                             Premium Account
                           </span>
-                          <span className="text-sm text-gray-500">Member since January 2024</span>
+                          <span className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Member since January 2024</span>
                         </div>
                       </div>
                       {isEditing ? (
@@ -261,69 +261,69 @@ export default function Profile() {
                     <h3 className={`text-base sm:text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Basic Information</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                        <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} mb-1`}>First Name</label>
                         <input
                           type="text"
                           name="firstName"
                           value={formData.firstName}
                           onChange={handleInputChange}
                           disabled={!isEditing}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-50"
+                          className={`w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'}`}
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                        <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} mb-1`}>Last Name</label>
                         <input
                           type="text"
                           name="lastName"
                           value={formData.lastName}
                           onChange={handleInputChange}
                           disabled={!isEditing}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-50"
+                          className={`w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'}`}
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} mb-1`}>Email</label>
                         <input
                           type="email"
                           name="email"
                           value={formData.email}
                           onChange={handleInputChange}
                           disabled={!isEditing}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-50"
+                          className={`w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'}`}
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                        <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} mb-1`}>Phone</label>
                         <input
                           type="tel"
                           name="phone"
                           value={formData.phone}
                           onChange={handleInputChange}
                           disabled={!isEditing}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-50"
+                          className={`w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'}`}
                         />
                       </div>
                       <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Bio</label>
+                        <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} mb-1`}>Bio</label>
                         <textarea
                           name="bio"
                           value={formData.bio}
                           onChange={handleInputChange}
                           disabled={!isEditing}
                           rows={3}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-50"
+                          className={`w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'}`}
                         />
                       </div>
                       <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                        <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} mb-1`}>Location</label>
                         <input
                           type="text"
                           name="location"
                           value={formData.location}
                           onChange={handleInputChange}
                           disabled={!isEditing}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-50"
+                          className={`w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'}`}
                         />
                       </div>
                     </div>
@@ -334,36 +334,36 @@ export default function Profile() {
                     <h3 className={`text-base sm:text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Social Links</h3>
                     <div className="space-y-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Website</label>
+                        <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} mb-1`}>Website</label>
                         <input
                           type="url"
                           name="website"
                           value={formData.website}
                           onChange={handleInputChange}
                           disabled={!isEditing}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-50"
+                          className={`w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'}`}
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">GitHub</label>
+                        <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} mb-1`}>GitHub</label>
                         <input
                           type="text"
                           name="github"
                           value={formData.github}
                           onChange={handleInputChange}
                           disabled={!isEditing}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-50"
+                          className={`w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'}`}
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Twitter</label>
+                        <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} mb-1`}>Twitter</label>
                         <input
                           type="text"
                           name="twitter"
                           value={formData.twitter}
                           onChange={handleInputChange}
                           disabled={!isEditing}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-50"
+                          className={`w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'}`}
                         />
                       </div>
                     </div>
@@ -375,8 +375,8 @@ export default function Profile() {
                     <div className="space-y-4">
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                         <div>
-                          <label className="text-sm font-medium text-gray-700">Email Notifications</label>
-                          <p className="text-xs text-gray-500">Receive email updates about your account</p>
+                          <label className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Email Notifications</label>
+                          <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Receive email updates about your account</p>
                         </div>
                         <input
                           type="checkbox"
@@ -384,13 +384,13 @@ export default function Profile() {
                           checked={preferences.emailNotifications}
                           onChange={handlePreferenceChange}
                           disabled={!isEditing}
-                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded disabled:opacity-50 mt-2 sm:mt-0"
+                          className={`h-4 w-4 text-indigo-600 focus:ring-indigo-500 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded disabled:opacity-50 mt-2 sm:mt-0`}
                         />
                       </div>
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                         <div>
-                          <label className="text-sm font-medium text-gray-700">Push Notifications</label>
-                          <p className="text-xs text-gray-500">Receive push notifications in your browser</p>
+                          <label className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Push Notifications</label>
+                          <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Receive push notifications in your browser</p>
                         </div>
                         <input
                           type="checkbox"
@@ -398,13 +398,13 @@ export default function Profile() {
                           checked={preferences.pushNotifications}
                           onChange={handlePreferenceChange}
                           disabled={!isEditing}
-                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded disabled:opacity-50 mt-2 sm:mt-0"
+                          className={`h-4 w-4 text-indigo-600 focus:ring-indigo-500 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded disabled:opacity-50 mt-2 sm:mt-0`}
                         />
                       </div>
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                         <div>
-                          <label className="text-sm font-medium text-gray-700">Marketing Emails</label>
-                          <p className="text-xs text-gray-500">Receive emails about new features and offers</p>
+                          <label className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Marketing Emails</label>
+                          <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Receive emails about new features and offers</p>
                         </div>
                         <input
                           type="checkbox"
@@ -412,13 +412,13 @@ export default function Profile() {
                           checked={preferences.marketingEmails}
                           onChange={handlePreferenceChange}
                           disabled={!isEditing}
-                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded disabled:opacity-50 mt-2 sm:mt-0"
+                          className={`h-4 w-4 text-indigo-600 focus:ring-indigo-500 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded disabled:opacity-50 mt-2 sm:mt-0`}
                         />
                       </div>
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                         <div>
-                          <label className="text-sm font-medium text-gray-700">Two-Factor Authentication</label>
-                          <p className="text-xs text-gray-500">Add an extra layer of security to your account</p>
+                          <label className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Two-Factor Authentication</label>
+                          <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Add an extra layer of security to your account</p>
                         </div>
                         <input
                           type="checkbox"
@@ -426,7 +426,7 @@ export default function Profile() {
                           checked={preferences.twoFactorAuth}
                           onChange={handlePreferenceChange}
                           disabled={!isEditing}
-                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded disabled:opacity-50 mt-2 sm:mt-0"
+                          className={`h-4 w-4 text-indigo-600 focus:ring-indigo-500 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded disabled:opacity-50 mt-2 sm:mt-0`}
                         />
                       </div>
                     </div>
@@ -440,27 +440,27 @@ export default function Profile() {
                     <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Account Stats</h3>
                     <div className="space-y-3">
                       <div className="flex justify-between">
-                        <span className="text-sm text-gray-600">Account Type</span>
-                        <span className="text-sm font-medium text-gray-900">Premium</span>
+                        <span className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Account Type</span>
+                        <span className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Premium</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-sm text-gray-600">Member Since</span>
-                        <span className="text-sm font-medium text-gray-900">Jan 15, 2024</span>
+                        <span className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Member Since</span>
+                        <span className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Jan 15, 2024</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-sm text-gray-600">Last Login</span>
-                        <span className="text-sm font-medium text-gray-900">Today</span>
+                        <span className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Last Login</span>
+                        <span className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Today</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-sm text-gray-600">Storage Used</span>
-                        <span className="text-sm font-medium text-gray-900">12.5 GB / 50 GB</span>
+                        <span className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Storage Used</span>
+                        <span className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>12.5 GB / 50 GB</span>
                       </div>
                     </div>
                     <div className="mt-4">
-                      <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className={`w-full ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'} rounded-full h-2`}>
                         <div className="bg-indigo-600 h-2 rounded-full" style={{ width: '25%' }}></div>
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">25% storage used</p>
+                      <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} mt-1`}>25% storage used</p>
                     </div>
                   </div>
 
@@ -468,16 +468,16 @@ export default function Profile() {
                   <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow p-6`}>
                     <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Quick Actions</h3>
                     <div className="space-y-3">
-                      <button className="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-md text-sm font-medium text-gray-700 transition-colors">
+                      <button className={`w-full text-left px-4 py-3 ${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' : 'bg-gray-50 hover:bg-gray-100 text-gray-700'} rounded-md text-sm font-medium transition-colors`}>
                         Change Password
                       </button>
-                      <button className="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-md text-sm font-medium text-gray-700 transition-colors">
+                      <button className={`w-full text-left px-4 py-3 ${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' : 'bg-gray-50 hover:bg-gray-100 text-gray-700'} rounded-md text-sm font-medium transition-colors`}>
                         Download Data
                       </button>
-                      <button className="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-md text-sm font-medium text-gray-700 transition-colors">
+                      <button className={`w-full text-left px-4 py-3 ${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' : 'bg-gray-50 hover:bg-gray-100 text-gray-700'} rounded-md text-sm font-medium transition-colors`}>
                         Privacy Settings
                       </button>
-                      <button className="w-full text-left px-4 py-3 bg-red-50 hover:bg-red-100 rounded-md text-sm font-medium text-red-700 transition-colors">
+                      <button className={`w-full text-left px-4 py-3 ${theme === 'dark' ? 'bg-red-900 hover:bg-red-800 text-red-300' : 'bg-red-50 hover:bg-red-100 text-red-700'} rounded-md text-sm font-medium transition-colors`}>
                         Delete Account
                       </button>
                     </div>
@@ -488,13 +488,13 @@ export default function Profile() {
                     <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Language & Region</h3>
                     <div className="space-y-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Language</label>
+                        <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} mb-1`}>Language</label>
                         <select
                           name="language"
                           value={preferences.language}
                           onChange={handlePreferenceChange}
                           disabled={!isEditing}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-50"
+                          className={`w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'}`}
                         >
                           <option value="en">English</option>
                           <option value="es">Spanish</option>
@@ -503,13 +503,13 @@ export default function Profile() {
                         </select>
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Timezone</label>
+                        <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} mb-1`}>Timezone</label>
                         <select
                           name="timezone"
                           value={preferences.timezone}
                           onChange={handlePreferenceChange}
                           disabled={!isEditing}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-50"
+                          className={`w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'}`}
                         >
                           <option value="America/Los_Angeles">Pacific Time (PT)</option>
                           <option value="America/New_York">Eastern Time (ET)</option>

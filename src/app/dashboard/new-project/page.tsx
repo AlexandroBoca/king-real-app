@@ -86,9 +86,9 @@ export default function NewProject() {
                     onClick={() => setFormData(prev => ({ ...prev, type: type.id }))}
                     className={`p-4 rounded-lg border-2 transition-all duration-200 text-left ${
                       formData.type === type.id
-                        ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20'
-                        : `border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 ${
-                            theme === 'dark' ? 'bg-gray-700' : 'bg-white'
+                        ? theme === 'dark' ? 'border-indigo-500 bg-indigo-900/20' : 'border-indigo-500 bg-indigo-50'
+                        : `border-gray-200 hover:border-gray-300 ${
+                            theme === 'dark' ? 'border-gray-600 hover:border-gray-500 bg-gray-700' : 'bg-white'
                           }`
                     }`}
                   >

@@ -3,11 +3,13 @@
 import { useAuth } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { DashboardLayout } from "@/components/DashboardLayout";
+import { useTheme } from "@/contexts/ThemeContext";
 import { useState } from "react";
 import Link from "next/link";
 
 export default function Help() {
   const { user } = useAuth();
+  const { theme } = useTheme();
   const [activeCategory, setActiveCategory] = useState("all");
   const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -203,7 +205,7 @@ export default function Help() {
         subtitle="Find answers, get support, and learn how to make the most of our platform."
         actions={
           <div className="flex items-center space-x-3">
-            <button className="bg-white text-gray-700 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors duration-200">
+            <button className={`${theme === 'dark' ? 'bg-gray-800 text-gray-300 border-gray-600 hover:bg-gray-700' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'} px-4 py-2 rounded-lg border transition-colors duration-200`}>
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
@@ -220,7 +222,7 @@ export default function Help() {
       >
         <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
           {/* Search Bar */}
-          <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-sm p-6`}>
             <div className="max-w-2xl mx-auto">
               <div className="relative">
                 <input
@@ -228,15 +230,15 @@ export default function Help() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search for help articles, FAQs, and guides..."
-                  className="w-full px-4 py-3 pl-12 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className={`w-full px-4 py-3 pl-12 ${theme === 'dark' ? 'text-white placeholder-gray-400 border-gray-600 bg-gray-700' : 'text-gray-900 placeholder-gray-500 border-gray-300 bg-white'} border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
                 />
-                <svg className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={`absolute left-4 top-3.5 w-5 h-5 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery("")}
-                    className="absolute right-4 top-3.5 text-gray-400 hover:text-gray-600"
+                    className={`absolute right-4 top-3.5 ${theme === 'dark' ? 'text-gray-400 hover:text-gray-300' : 'text-gray-400 hover:text-gray-600'}`}
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -245,12 +247,12 @@ export default function Help() {
                 )}
               </div>
               <div className="mt-4 flex flex-wrap gap-2">
-                <span className="text-sm text-gray-600">Popular searches:</span>
+                <span className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Popular searches:</span>
                 {["billing", "account setup", "API integration", "troubleshooting"].map((term) => (
                   <button
                     key={term}
                     onClick={() => setSearchQuery(term)}
-                    className="text-sm text-indigo-600 hover:text-indigo-700 font-medium"
+                    className={`text-sm ${theme === 'dark' ? 'text-indigo-400 hover:text-indigo-300' : 'text-indigo-600 hover:text-indigo-700'} font-medium`}
                   >
                     {term}
                   </button>
@@ -260,8 +262,8 @@ export default function Help() {
           </div>
 
           {/* Categories */}
-          <div className="bg-white rounded-xl shadow-sm p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-6">Browse by Category</h3>
+          <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-sm p-6`}>
+            <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-6`}>Browse by Category</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
               {categories.map((category) => (
                 <button
@@ -269,24 +271,26 @@ export default function Help() {
                   onClick={() => setActiveCategory(category.id)}
                   className={`p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${
                     activeCategory === category.id
-                      ? "border-indigo-500 bg-indigo-50"
-                      : "border-gray-200 hover:border-indigo-300"
+                      ? theme === 'dark' ? 'border-indigo-400 bg-indigo-900' : 'border-indigo-500 bg-indigo-50'
+                      : theme === 'dark'
+                        ? 'border-gray-700 hover:border-indigo-400'
+                        : 'border-gray-200 hover:border-indigo-300'
                   }`}
                 >
                   <div className={`w-10 h-10 ${category.color} rounded-lg flex items-center justify-center text-white text-xl mx-auto mb-2`}>
                     {category.icon}
                   </div>
-                  <p className="text-sm font-medium text-gray-900">{category.name}</p>
+                  <p className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{category.name}</p>
                 </button>
               ))}
             </div>
           </div>
 
           {/* FAQ Section */}
-          <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-sm p-6`}>
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-semibold text-gray-900">Frequently Asked Questions</h3>
-              <span className="text-sm text-gray-600">
+              <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Frequently Asked Questions</h3>
+              <span className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                 {filteredFAQs.length} {filteredFAQs.length === 1 ? 'result' : 'results'} found
               </span>
             </div>
@@ -295,17 +299,17 @@ export default function Help() {
               {filteredFAQs.map((faq, index) => (
                 <div
                   key={faq.id}
-                  className="border border-gray-200 rounded-lg hover:border-indigo-300 transition-colors duration-200"
+                  className={`border ${theme === 'dark' ? 'border-gray-700 hover:border-indigo-400' : 'border-gray-200 hover:border-indigo-300'} rounded-lg transition-colors duration-200`}
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
                   <button
                     onClick={() => setExpandedFAQ(expandedFAQ === faq.id ? null : faq.id)}
-                    className="w-full px-6 py-4 text-left hover:bg-gray-50 transition-colors duration-200"
+                    className={`w-full px-6 py-4 text-left ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-50'} transition-colors duration-200`}
                   >
                     <div className="flex items-center justify-between">
-                      <h4 className="text-sm font-medium text-gray-900 pr-4">{faq.question}</h4>
+                      <h4 className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'} pr-4`}>{faq.question}</h4>
                       <svg
-                        className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${
+                        className={`w-5 h-5 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-400'} transition-transform duration-200 ${
                           expandedFAQ === faq.id ? "transform rotate-180" : ""
                         }`}
                         fill="none"
@@ -318,18 +322,18 @@ export default function Help() {
                   </button>
                   
                   {expandedFAQ === faq.id && (
-                    <div className="px-6 pb-4 border-t border-gray-100">
-                      <p className="text-sm text-gray-600 mt-4">{faq.answer}</p>
-                      <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                        <div className="flex items-center space-x-4 text-xs text-gray-500">
+                    <div className={`px-6 pb-4 border-t ${theme === 'dark' ? 'border-gray-700' : 'border-gray-100'}`}>
+                      <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mt-4`}>{faq.answer}</p>
+                      <div className={`flex items-center justify-between mt-4 pt-4 ${theme === 'dark' ? 'border-gray-700' : 'border-gray-100'}`}>
+                        <div className={`flex items-center space-x-4 text-xs ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'}`}>
                           <span>{faq.views} views</span>
                           <span>{faq.helpful}% found this helpful</span>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <button className="text-xs text-gray-600 hover:text-green-600 font-medium">
+                          <button className={`text-xs ${theme === 'dark' ? 'text-gray-400 hover:text-green-400' : 'text-gray-600 hover:text-green-600'} font-medium`}>
                             👍 Helpful
                           </button>
-                          <button className="text-xs text-gray-600 hover:text-red-600 font-medium">
+                          <button className={`text-xs ${theme === 'dark' ? 'text-gray-400 hover:text-red-400' : 'text-gray-600 hover:text-red-600'} font-medium`}>
                             👎 Not Helpful
                           </button>
                         </div>
@@ -342,14 +346,14 @@ export default function Help() {
           </div>
 
           {/* Resources Grid */}
-          <div className="bg-white rounded-xl shadow-sm p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-6">Learning Resources</h3>
+          <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-sm p-6`}>
+            <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-6`}>Learning Resources</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {resources.map((resource, index) => (
                 <Link
                   key={resource.title}
                   href={resource.link}
-                  className="group block p-6 border border-gray-200 rounded-lg hover:border-indigo-300 hover:shadow-lg transition-all duration-200"
+                  className={`group block p-6 border ${theme === 'dark' ? 'border-gray-700 hover:border-indigo-400' : 'border-gray-200 hover:border-indigo-300'} rounded-lg hover:shadow-lg transition-all duration-200`}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="flex items-center mb-4">
@@ -357,16 +361,16 @@ export default function Help() {
                       {resource.icon}
                     </div>
                     <div className="flex-1">
-                      <h4 className="text-base font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors duration-200">
+                      <h4 className={`text-base font-semibold ${theme === 'dark' ? 'text-white group-hover:text-indigo-400' : 'text-gray-900 group-hover:text-indigo-600'} transition-colors duration-200`}>
                         {resource.title}
                       </h4>
-                      <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+                      <span className={`text-xs ${theme === 'dark' ? 'text-gray-400 bg-gray-700' : 'text-gray-500 bg-gray-100'} px-2 py-1 rounded-full`}>
                         {resource.count} {typeof resource.count === 'number' ? 'items' : 'uptime'}
                       </span>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600 mb-4">{resource.description}</p>
-                  <div className="flex items-center text-sm text-indigo-600 font-medium group-hover:text-indigo-700 transition-colors duration-200">
+                  <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mb-4`}>{resource.description}</p>
+                  <div className={`flex items-center text-sm ${theme === 'dark' ? 'text-indigo-400 group-hover:text-indigo-300' : 'text-indigo-600 group-hover:text-indigo-700'} font-medium transition-colors duration-200`}>
                     Explore
                     <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -378,21 +382,21 @@ export default function Help() {
           </div>
 
           {/* Support Options */}
-          <div className="bg-white rounded-xl shadow-sm p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-6">Contact Support</h3>
+          <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-sm p-6`}>
+            <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-6`}>Contact Support</h3>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {supportOptions.map((option, index) => (
                 <div
                   key={option.title}
-                  className="p-6 border border-gray-200 rounded-lg hover:border-indigo-300 hover:shadow-lg transition-all duration-200"
+                  className={`p-6 border ${theme === 'dark' ? 'border-gray-700 hover:border-indigo-400' : 'border-gray-200 hover:border-indigo-300'} rounded-lg hover:shadow-lg transition-all duration-200`}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className={`w-12 h-12 ${option.color} rounded-lg flex items-center justify-center text-white text-2xl mb-4`}>
                     {option.icon}
                   </div>
-                  <h4 className="text-base font-semibold text-gray-900 mb-2">{option.title}</h4>
-                  <p className="text-sm text-gray-600 mb-4">{option.description}</p>
-                  <div className="space-y-2 text-xs text-gray-500 mb-4">
+                  <h4 className={`text-base font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-2`}>{option.title}</h4>
+                  <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mb-4`}>{option.description}</p>
+                  <div className={`space-y-2 text-xs ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'} mb-4`}>
                     <div className="flex items-center">
                       <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -415,27 +419,27 @@ export default function Help() {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white rounded-xl shadow-sm p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-6">Send us a Message</h3>
+          <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-sm p-6`}>
+            <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-6`}>Send us a Message</h3>
             <form onSubmit={handleContactSubmit} className="max-w-2xl">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                  <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} mb-1`}>Name</label>
                   <input
                     type="text"
                     value={contactForm.name}
                     onChange={(e) => setContactForm(prev => ({ ...prev, name: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className={`w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} mb-1`}>Email</label>
                   <input
                     type="email"
                     value={contactForm.email}
                     onChange={(e) => setContactForm(prev => ({ ...prev, email: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className={`w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
                     required
                   />
                 </div>
@@ -443,21 +447,21 @@ export default function Help() {
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                  <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} mb-1`}>Subject</label>
                   <input
                     type="text"
                     value={contactForm.subject}
                     onChange={(e) => setContactForm(prev => ({ ...prev, subject: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className={`w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Priority</label>
+                  <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} mb-1`}>Priority</label>
                   <select
                     value={contactForm.priority}
                     onChange={(e) => setContactForm(prev => ({ ...prev, priority: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className={`w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
                   >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -468,18 +472,18 @@ export default function Help() {
               </div>
               
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                <label className={`block text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} mb-1`}>Message</label>
                 <textarea
                   value={contactForm.message}
                   onChange={(e) => setContactForm(prev => ({ ...prev, message: e.target.value }))}
                   rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className={`w-full px-3 py-2 border ${theme === 'dark' ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-300 bg-white'} rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
                   required
                 />
               </div>
               
               <div className="flex items-center justify-between">
-                <p className="text-sm text-gray-600">
+                <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                   We'll respond within 24 hours during business hours.
                 </p>
                 <button
