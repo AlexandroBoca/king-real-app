@@ -108,33 +108,16 @@ input[type="tel"]:focus {
 }
 
 /* Absolutely no blue backgrounds anywhere - but not buttons! */
-* {
+*:not(button):not(input[type="button"]):not(input[type="submit"]) {
   transition: background-color 0s !important;
 }
 
-*:focus,
-*:focus-visible,
-*:hover,
-*:active {
+*:not(button):not(input[type="button"]):not(input[type="submit"]):focus,
+*:not(button):not(input[type="button"]):not(input[type="submit"]):focus-visible,
+*:not(button):not(input[type="button"]):not(input[type="submit"]):hover,
+*:not(button):not(input[type="button"]):not(input[type="submit"]):active {
   background-color: white !important;
   background: white !important;
-}
-
-/* Exclude buttons from universal background rules */
-button:focus,
-button:focus-visible,
-button:hover,
-button:active,
-input[type="button"]:focus,
-input[type="button"]:focus-visible,
-input[type="button"]:hover,
-input[type="button"]:active,
-input[type="submit"]:focus,
-input[type="submit"]:focus-visible,
-input[type="submit"]:hover,
-input[type="submit"]:active {
-  background-color: revert !important;
-  background: revert !important;
 }
 
 /* Target any element with any kind of blue background */
