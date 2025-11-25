@@ -30,3 +30,17 @@ body {
   background-color: #111827;
   color: #f9fafb;
 }
+
+/* Dark mode for form elements */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: #1f2937;
+  border-color: #374151;
+  color: #f9fafb;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #6b7280;
+}
