@@ -436,7 +436,7 @@ export default function Profile() {
                 {/* Sidebar */}
                 <div className="space-y-6">
                   {/* Account Stats */}
-                  <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow p-6">
+                  <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow p-6`}>
                     <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Account Stats</h3>
                     <div className="space-y-3">
                       <div className="flex justify-between">
@@ -465,7 +465,7 @@ export default function Profile() {
                   </div>
 
                   {/* Quick Actions */}
-                  <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow p-6">
+                  <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow p-6`}>
                     <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Quick Actions</h3>
                     <div className="space-y-3">
                       <button className="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-md text-sm font-medium text-gray-700 transition-colors">
@@ -484,7 +484,7 @@ export default function Profile() {
                   </div>
 
                   {/* Language & Timezone */}
-                  <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow p-6">
+                  <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow p-6`}>
                     <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Language & Region</h3>
                     <div className="space-y-4">
                       <div>
