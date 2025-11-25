@@ -10,7 +10,11 @@ interface NavItem {
   icon: React.ReactNode;
 }
 
-export function DashboardSidebar() {
+interface DashboardSidebarProps {
+  onMenuToggle?: () => void;
+}
+
+export function DashboardSidebar({ onMenuToggle }: DashboardSidebarProps = {}) {
   const pathname = usePathname();
   const { user, logout } = useAuth();
 
@@ -73,16 +77,27 @@ export function DashboardSidebar() {
   ];
 
   return (
-    <div className="flex flex-col h-full bg-white border-r border-gray-200">
+    <div className="flex flex-col h-full bg-white">
       {/* Logo */}
-      <div className="flex items-center h-16 px-6 border-b border-gray-200">
+      <div className="flex items-center h-16 px-6 border-b border-gray-200 flex-shrink-0">
+        {/* Mobile menu button */}
+        <div className="lg:hidden mr-3">
+          <button 
+            onClick={onMenuToggle}
+            className="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100"
+          >
+            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
         <Link href="/dashboard" className="flex items-center">
           <h1 className="text-xl font-bold text-gray-900">MyApp</h1>
         </Link>
       </div>
 
       {/* User Info */}
-      <div className="px-6 py-4 border-b border-gray-200">
+      <div className="px-6 py-4 border-b border-gray-200 flex-shrink-0">
         <div className="flex items-center">
           <div className="flex-shrink-0">
             <div className="h-8 w-8 bg-indigo-500 rounded-full flex items-center justify-center">
@@ -91,17 +106,17 @@ export function DashboardSidebar() {
               </span>
             </div>
           </div>
-          <div className="ml-3">
-            <p className="text-sm font-medium text-gray-900">
+          <div className="ml-3 min-w-0 flex-1">
+            <p className="text-sm font-medium text-gray-900 truncate">
               {user?.firstName} {user?.lastName}
             </p>
-            <p className="text-xs text-gray-500">{user?.email}</p>
+            <p className="text-xs text-gray-500 truncate">{user?.email}</p>
           </div>
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-4 py-6 space-y-1">
+      <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
         {navigation.map((item) => {
           const isActive = pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href));
           
@@ -127,25 +142,15 @@ export function DashboardSidebar() {
       </nav>
 
       {/* Sign Out */}
-      <div className="px-4 py-4 border-t border-gray-200">
+      <div className="px-4 py-4 border-t border-gray-200 flex-shrink-0">
         <button
           onClick={logout}
-          className="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-all duration-200 w-full"
+          className="w-full group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-all duration-200"
         >
-          <svg
-            className="flex-shrink-0 mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-            />
+          <svg className="flex-shrink-0 mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
           </svg>
-          Sign Out
+          Sign out
         </button>
       </div>
     </div>

@@ -136,44 +136,44 @@ export default function Profile() {
         <div className="max-w-4xl mx-auto">
           {saveStatus === "success" && (
             <div className="mb-4 flex items-center text-sm text-green-600 bg-green-50 p-3 rounded-md">
-              <svg className="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="h-4 w-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              Profile updated successfully!
+              <span className="truncate">Profile updated successfully!</span>
             </div>
           )}
           {saveStatus === "error" && (
             <div className="mb-4 flex items-center text-sm text-red-600 bg-red-50 p-3 rounded-md">
-              <svg className="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="h-4 w-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
               </svg>
-              Failed to update profile. Please try again.
+              <span className="truncate">Failed to update profile. Please try again.</span>
             </div>
           )}
               {/* Profile Header */}
-              <div className="bg-white rounded-lg shadow p-6 mb-6">
-                <div className="flex items-center space-x-6">
-                  <div className="relative">
-                    <div className="h-24 w-24 bg-indigo-500 rounded-full flex items-center justify-center">
-                      <span className="text-white text-3xl font-bold">
+              <div className="bg-white rounded-lg shadow p-4 sm:p-6 mb-6">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 space-y-4 sm:space-y-0">
+                  <div className="relative flex-shrink-0">
+                    <div className="h-16 w-16 sm:h-24 sm:w-24 bg-indigo-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xl sm:text-3xl font-bold">
                         {user?.firstName?.[0]}{user?.lastName?.[0]}
                       </span>
                     </div>
                     {isEditing && (
-                      <button className="absolute bottom-0 right-0 bg-indigo-600 text-white p-2 rounded-full hover:bg-indigo-700">
-                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <button className="absolute bottom-0 right-0 bg-indigo-600 text-white p-1.5 sm:p-2 rounded-full hover:bg-indigo-700">
+                        <svg className="h-3 w-3 sm:h-4 sm:w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                       </button>
                     )}
                   </div>
-                  <div className="flex-1">
-                    <h2 className="text-2xl font-bold text-gray-900">
+                  <div className="flex-1 min-w-0">
+                    <h2 className="text-xl sm:text-2xl font-bold text-gray-900 truncate">
                       {user?.firstName} {user?.lastName}
                     </h2>
-                    <p className="text-gray-600">{user?.email}</p>
-                    <div className="flex items-center space-x-4 mt-2">
+                    <p className="text-gray-600 truncate">{user?.email}</p>
+                    <div className="flex flex-wrap items-center gap-2 mt-2">
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                         Premium Account
                       </span>
@@ -187,9 +187,9 @@ export default function Profile() {
                 {/* Main Profile Information */}
                 <div className="lg:col-span-2 space-y-6">
                   {/* Basic Information */}
-                  <div className="bg-white rounded-lg shadow p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Basic Information</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">Basic Information</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
                         <input
@@ -260,8 +260,8 @@ export default function Profile() {
                   </div>
 
                   {/* Social Links */}
-                  <div className="bg-white rounded-lg shadow p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Social Links</h3>
+                  <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">Social Links</h3>
                     <div className="space-y-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Website</label>
@@ -300,10 +300,10 @@ export default function Profile() {
                   </div>
 
                   {/* Preferences */}
-                  <div className="bg-white rounded-lg shadow p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Preferences</h3>
+                  <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">Preferences</h3>
                     <div className="space-y-4">
-                      <div className="flex items-center justify-between">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                         <div>
                           <label className="text-sm font-medium text-gray-700">Email Notifications</label>
                           <p className="text-xs text-gray-500">Receive email updates about your account</p>
@@ -314,10 +314,10 @@ export default function Profile() {
                           checked={preferences.emailNotifications}
                           onChange={handlePreferenceChange}
                           disabled={!isEditing}
-                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded disabled:opacity-50"
+                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded disabled:opacity-50 mt-2 sm:mt-0"
                         />
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                         <div>
                           <label className="text-sm font-medium text-gray-700">Push Notifications</label>
                           <p className="text-xs text-gray-500">Receive push notifications in your browser</p>
@@ -328,10 +328,10 @@ export default function Profile() {
                           checked={preferences.pushNotifications}
                           onChange={handlePreferenceChange}
                           disabled={!isEditing}
-                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded disabled:opacity-50"
+                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded disabled:opacity-50 mt-2 sm:mt-0"
                         />
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                         <div>
                           <label className="text-sm font-medium text-gray-700">Marketing Emails</label>
                           <p className="text-xs text-gray-500">Receive emails about new features and offers</p>
@@ -342,10 +342,10 @@ export default function Profile() {
                           checked={preferences.marketingEmails}
                           onChange={handlePreferenceChange}
                           disabled={!isEditing}
-                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded disabled:opacity-50"
+                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded disabled:opacity-50 mt-2 sm:mt-0"
                         />
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                         <div>
                           <label className="text-sm font-medium text-gray-700">Two-Factor Authentication</label>
                           <p className="text-xs text-gray-500">Add an extra layer of security to your account</p>
@@ -356,7 +356,7 @@ export default function Profile() {
                           checked={preferences.twoFactorAuth}
                           onChange={handlePreferenceChange}
                           disabled={!isEditing}
-                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded disabled:opacity-50"
+                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded disabled:opacity-50 mt-2 sm:mt-0"
                         />
                       </div>
                     </div>
