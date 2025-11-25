@@ -178,7 +178,7 @@ export default function Profile() {
             </div>
           )}
               {/* Profile Header */}
-              <div className="bg-white rounded-lg shadow p-4 sm:p-6 mb-6">
+              <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow p-4 sm:p-6 mb-6`}>
                 <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 space-y-4 sm:space-y-0">
                   <div className="relative flex-shrink-0">
                     <div className="h-16 w-16 sm:h-24 sm:w-24 bg-indigo-500 rounded-full flex items-center justify-center">
@@ -214,7 +214,11 @@ export default function Profile() {
                           <button
                             onClick={handleCancel}
                             disabled={saveStatus === "saving"}
-                            className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                            className={`px-4 py-2 text-sm font-medium border rounded-md disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 ${
+                              theme === 'dark'
+                                ? 'text-gray-300 bg-gray-700 border-gray-600 hover:bg-gray-600'
+                                : 'text-gray-700 bg-white border-gray-300 hover:bg-gray-50'
+                            }`}
                           >
                             Cancel
                           </button>
@@ -253,8 +257,8 @@ export default function Profile() {
                 {/* Main Profile Information */}
                 <div className="lg:col-span-2 space-y-6">
                   {/* Basic Information */}
-                  <div className="bg-white rounded-lg shadow p-4 sm:p-6">
-                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">Basic Information</h3>
+                  <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow p-4 sm:p-6`}>
+                    <h3 className={`text-base sm:text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Basic Information</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
@@ -326,8 +330,8 @@ export default function Profile() {
                   </div>
 
                   {/* Social Links */}
-                  <div className="bg-white rounded-lg shadow p-4 sm:p-6">
-                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">Social Links</h3>
+                  <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow p-4 sm:p-6`}>
+                    <h3 className={`text-base sm:text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Social Links</h3>
                     <div className="space-y-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Website</label>
@@ -366,8 +370,8 @@ export default function Profile() {
                   </div>
 
                   {/* Preferences */}
-                  <div className="bg-white rounded-lg shadow p-4 sm:p-6">
-                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">Preferences</h3>
+                  <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow p-4 sm:p-6`}>
+                    <h3 className={`text-base sm:text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Preferences</h3>
                     <div className="space-y-4">
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                         <div>
@@ -432,8 +436,8 @@ export default function Profile() {
                 {/* Sidebar */}
                 <div className="space-y-6">
                   {/* Account Stats */}
-                  <div className="bg-white rounded-lg shadow p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Account Stats</h3>
+                  <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow p-6">
+                    <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Account Stats</h3>
                     <div className="space-y-3">
                       <div className="flex justify-between">
                         <span className="text-sm text-gray-600">Account Type</span>
@@ -461,8 +465,8 @@ export default function Profile() {
                   </div>
 
                   {/* Quick Actions */}
-                  <div className="bg-white rounded-lg shadow p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+                  <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow p-6">
+                    <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Quick Actions</h3>
                     <div className="space-y-3">
                       <button className="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-md text-sm font-medium text-gray-700 transition-colors">
                         Change Password
@@ -480,8 +484,8 @@ export default function Profile() {
                   </div>
 
                   {/* Language & Timezone */}
-                  <div className="bg-white rounded-lg shadow p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Language & Region</h3>
+                  <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow p-6">
+                    <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Language & Region</h3>
                     <div className="space-y-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Language</label>

@@ -6,10 +6,12 @@ import { DashboardLayout } from "@/components/DashboardLayout";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
   const { user, logout } = useAuth();
   const { theme } = useTheme();
+  const router = useRouter();
   const [selectedPeriod, setSelectedPeriod] = useState("week");
   const [animatedStats, setAnimatedStats] = useState({
     users: 0,
@@ -113,7 +115,7 @@ export default function Dashboard() {
           </svg>
         </div>
       ),
-      href: "/dashboard/projects/new",
+      href: "/dashboard/new-project",
       color: "from-indigo-500 to-indigo-600",
     },
     {
@@ -223,7 +225,10 @@ export default function Dashboard() {
               </svg>
               Export
             </button>
-            <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors duration-200">
+            <button 
+              onClick={() => router.push('/dashboard/new-project')}
+              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors duration-200"
+            >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
               </svg>

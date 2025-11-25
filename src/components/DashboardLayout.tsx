@@ -26,7 +26,7 @@ export function DashboardLayout({ children, title, subtitle, actions }: Dashboar
 
       {/* Mobile Sidebar - Sliding sidebar without overlay */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 transform transition-transform duration-300 ease-in-out shadow-lg">
+        <div className={`lg:hidden fixed inset-y-0 left-0 z-50 w-64 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} transform transition-transform duration-300 ease-in-out shadow-lg`}>
           <div className="h-full overflow-y-auto">
             <DashboardSidebar onMenuToggle={() => setMobileMenuOpen(false)} />
           </div>
@@ -36,7 +36,7 @@ export function DashboardLayout({ children, title, subtitle, actions }: Dashboar
       {/* Main Content */}
       <div className="flex-1 flex flex-col lg:ml-0">
         {/* Top Header */}
-        <header className={`bg-white dark:bg-gray-800 shadow-sm border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'} relative z-40`}>
+        <header className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} shadow-sm border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'} relative z-40`}>
           <div className="px-4 sm:px-6 py-4">
             <div className="flex items-center justify-between">
               {/* Mobile menu button */}
