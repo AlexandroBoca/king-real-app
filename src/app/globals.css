@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+/* Updated: 2025-11-25 */
 body {
   font-family: Arial, Helvetica, sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
