@@ -235,7 +235,7 @@ export default function SignUp() {
                 required
                 checked={formData.agreeToTerms}
                 onChange={handleChange}
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 bg-white rounded"
+                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 bg-white rounded appearance-none checked:bg-indigo-600 checked:border-indigo-600"
               />
               <label htmlFor="agree-to-terms" className="ml-2 block text-sm text-gray-900">
                 I agree to the{' '}
