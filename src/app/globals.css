@@ -64,6 +64,16 @@ body {
   font-weight: bold !important;
 }
 
+/* Force input text color to be visible */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+textarea {
+  color: #111827 !important;
+  background-color: white !important;
+}
+
 /* Dark mode shadows */
 .dark .shadow-sm {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5) !important;
