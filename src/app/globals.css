@@ -107,6 +107,34 @@ input[type="tel"]:focus {
   background-color: white !important;
 }
 
+/* Absolutely no blue backgrounds anywhere */
+* {
+  transition: background-color 0s !important;
+}
+
+*:focus,
+*:focus-visible,
+*:hover,
+*:active {
+  background-color: white !important;
+  background: white !important;
+}
+
+/* Target any element with any kind of blue background */
+[style*="background"],
+[style*="background-color"] {
+  background-color: white !important;
+  background: white !important;
+}
+
+/* Override any inline styles that might set blue backgrounds */
+input[style],
+textarea[style],
+*[style] {
+  background-color: white !important;
+  background: white !important;
+}
+
 /* Dark mode shadows */
 .dark .shadow-sm {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5) !important;
